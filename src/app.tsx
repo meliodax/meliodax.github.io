@@ -1,22 +1,12 @@
 import { type ReactNode, useEffect, useState } from 'react'
-import goatgram from './assets/goat-phone/goatgram.png'
-import home from './assets/goat-phone/home.png'
-import lock from './assets/goat-phone/lock.png'
-import zap from './assets/goat-phone/zap.png'
-import { career, contact, features, now, systems } from './content'
+import { career, contact, type Feature, features, now, systems } from './content'
 
 const sections = [
   { id: 'sobre', label: 'Sobre' },
+  { id: 'como-funciona', label: 'Como funciona' },
   { id: 'experiencia', label: 'Experiência' },
   { id: 'projetos', label: 'Projetos' },
   { id: 'sistemas', label: 'Sistemas' },
-]
-
-const phoneScreens = [
-  { label: 'Tela de bloqueio', src: lock },
-  { label: 'Tela inicial', src: home },
-  { label: 'Zap', src: zap },
-  { label: 'Goatgram', src: goatgram },
 ]
 
 function useLocalTime() {
@@ -101,7 +91,8 @@ function Sidebar({ active }: { active: string }) {
         </h1>
         <h2 className="mt-4 text-xl font-medium text-bright">Desenvolvedor Full Stack</h2>
         <p className="mt-4 max-w-xs leading-relaxed">
-          Faço sistemas para servidores de GTA V, do jogo até os serviços web que rodam ao lado.
+          Node.js, React, TypeScript e bancos SQL. Há 5 anos construo sistemas usados por centenas de pessoas
+          ao mesmo tempo.
         </p>
         <nav className="mt-16 hidden lg:block" aria-label="Seções">
           <ul className="space-y-1">
@@ -179,18 +170,20 @@ function About() {
     <Section id="sobre" title="Sobre">
       <div className="space-y-4 leading-relaxed">
         <p>
-          Comecei em 2019 com um servidor de roleplay próprio. Em 2021 passei a programar para outros
-          servidores e, depois, para empresas do setor como <span className="text-bright">Lotus Group</span>,{' '}
-          <span className="text-bright">Fusion Group</span> e <span className="text-bright">WinsVUE</span>.
+          Sou desenvolvedor full stack. Trabalho com <span className="text-bright">Node.js</span>,{' '}
+          <span className="text-bright">React</span>, <span className="text-bright">TypeScript</span>,{' '}
+          <span className="text-bright">PostgreSQL</span> e <span className="text-bright">MySQL</span>, além de
+          Lua, a linguagem em que escrevo a maior parte do back-end dos servidores.
         </p>
         <p>
-          No dia a dia escrevo Lua e Node.js no back-end, MySQL e PostgreSQL no banco e React com TypeScript
-          nas interfaces. Já fiz de inventário e economia de jogo a sistema de logs, bot de Discord e painel de
-          moderação com API.
+          Desde 2021 construo sistemas para servidores de jogo online, primeiro como freelancer e depois para
+          empresas como Lotus Group, Fusion Group e WinsVUE. Na prática, cada servidor é um produto online
+          com centenas de usuários conectados, regras de negócio, banco de dados, painéis administrativos,
+          integrações e equipe de suporte.
         </p>
         <p>
-          Hoje cuido, junto com um sócio, de dois servidores que passam de 700 jogadores ao mesmo tempo, e
-          estou procurando uma vaga CLT ou PJ como desenvolvedor full stack, back-end ou de jogos.
+          Agora quero levar essa experiência para produtos web e sistemas fora dos jogos. Estou aberto a vagas
+          CLT ou PJ como desenvolvedor full stack ou back-end, remoto, híbrido ou presencial na Grande São Paulo.
         </p>
       </div>
       <ul className="mt-10 grid gap-3 sm:grid-cols-3">
@@ -202,6 +195,83 @@ function About() {
           </li>
         ))}
       </ul>
+    </Section>
+  )
+}
+
+type Layer = {
+  name: string
+  role: string
+  tech: string
+}
+
+const layers: Layer[] = [
+  {
+    name: 'Interface',
+    role: 'Telas que o usuário vê, desenhadas por cima do jogo como uma página web',
+    tech: 'React, Vue, TypeScript',
+  },
+  {
+    name: 'Servidor de jogo',
+    role: 'Regras de negócio, permissões, economia e eventos em tempo real',
+    tech: 'Lua',
+  },
+  {
+    name: 'Banco de dados',
+    role: 'Contas, inventários, transações e histórico',
+    tech: 'MySQL, PostgreSQL',
+  },
+]
+
+const sideServices = ['Sites e painéis em Next.js', 'APIs em Node.js', 'Bots de Discord', 'Transmissão por WebRTC']
+
+function HowItWorks() {
+  return (
+    <Section id="como-funciona" title="Como funciona">
+      <h3 className="text-lg font-semibold text-bright">O que é FiveM, e por que isso é desenvolvimento web</h3>
+      <div className="mt-4 space-y-4 leading-relaxed">
+        <p>
+          O <span className="text-bright">FiveM</span> é uma plataforma que permite criar servidores próprios
+          de GTA V, o jogo da Rockstar. Cada servidor tem suas regras, sua economia e seus sistemas, e recebe
+          centenas de pessoas conectadas ao mesmo tempo. Os maiores funcionam como empresas, com equipe,
+          faturamento e suporte.
+        </p>
+        <p>
+          Por baixo, a estrutura é a mesma de uma aplicação web: interface, back-end, banco de dados e serviços
+          ao redor. A diferença é que a interface aparece dentro do jogo.
+        </p>
+      </div>
+      <figure className="mt-8">
+        <div className="grid gap-4 sm:grid-cols-[1fr_auto]">
+          <ol className="space-y-2">
+            {layers.map((layer, index) => (
+              <li key={layer.name}>
+                <div className="rounded-lg border border-line bg-night-raised/60 p-4">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <p className="font-semibold text-bright">{layer.name}</p>
+                    <p className="text-right text-xs font-medium text-ember">{layer.tech}</p>
+                  </div>
+                  <p className="mt-1 text-sm text-dim">{layer.role}</p>
+                </div>
+                {index < layers.length - 1 ? (
+                  <div className="ml-6 h-2 w-px bg-line" aria-hidden="true" />
+                ) : null}
+              </li>
+            ))}
+          </ol>
+          <div className="rounded-lg border border-dashed border-line p-4 sm:w-44">
+            <p className="text-sm font-semibold text-bright">Serviços ao lado</p>
+            <ul className="mt-2 space-y-1.5 text-sm text-dim">
+              {sideServices.map((service) => (
+                <li key={service}>{service}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <figcaption className="mt-3 text-sm text-dim">
+          As camadas de um servidor e as tecnologias que uso em cada uma.
+        </figcaption>
+      </figure>
     </Section>
   )
 }
@@ -235,27 +305,64 @@ function Experience() {
   )
 }
 
-function PhoneThumb() {
+function Gallery({ feature }: { feature: Feature }) {
   const [index, setIndex] = useState(0)
-  const screen = phoneScreens[index]
+  if (feature.shots.length === 0) return null
+  const shot = feature.shots[index]
+  const isPhone = feature.shape === 'phone'
 
   return (
-    <div className="w-32 flex-none">
-      <button
-        type="button"
-        onClick={() => setIndex((index + 1) % phoneScreens.length)}
-        className="block"
-        aria-label={`Mostrar próxima tela do Goat Phone. Agora: ${screen.label}`}
-      >
-        <img
-          src={screen.src}
-          alt={`${screen.label} do Goat Phone`}
-          width={387}
-          height={815}
-          className="w-full rounded-[1.1rem] border border-line"
-        />
-      </button>
-      <p className="mt-2 text-center text-xs text-dim">Toque para trocar</p>
+    <figure className={isPhone ? 'w-36 flex-none' : 'w-full'}>
+      <img
+        src={shot.src}
+        alt={`${feature.title}: ${shot.label}`}
+        loading="lazy"
+        className={`w-full border border-line ${isPhone ? 'rounded-[1.2rem]' : 'rounded-lg'}`}
+      />
+      {feature.shots.length > 1 ? (
+        <div className="mt-2 flex flex-wrap gap-1" role="tablist" aria-label={`Telas de ${feature.title}`}>
+          {feature.shots.map((item, itemIndex) => (
+            <button
+              key={item.label}
+              type="button"
+              role="tab"
+              aria-selected={itemIndex === index}
+              onClick={() => setIndex(itemIndex)}
+              className={`rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
+                itemIndex === index ? 'bg-bright text-night' : 'text-dim hover:text-bright'
+              }`}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      ) : (
+        <figcaption className="mt-2 text-xs text-dim">{shot.label}, com dados de demonstração</figcaption>
+      )}
+    </figure>
+  )
+}
+
+function FeatureBody({ feature }: { feature: Feature }) {
+  return (
+    <div className="flex-1">
+      <h3 className="font-semibold text-bright">{feature.title}</h3>
+      <p className="text-sm text-dim">{feature.context}</p>
+      <h4 className="mt-4 text-xs font-semibold text-bright">O problema</h4>
+      <p className="mt-1 text-sm leading-relaxed">{feature.problem}</p>
+      <h4 className="mt-4 text-xs font-semibold text-bright">O que eu fiz</h4>
+      <ul className="mt-1 space-y-1.5 text-sm leading-relaxed">
+        {feature.solution.map((step) => (
+          <li key={step} className="flex gap-2.5">
+            <span className="mt-2 size-1 flex-none rounded-full bg-ember" aria-hidden="true" />
+            {step}
+          </li>
+        ))}
+      </ul>
+      <p className="mt-4 rounded-md border-l-2 border-ember bg-ember/5 px-3 py-2 text-sm leading-relaxed text-bright">
+        {feature.result}
+      </p>
+      <Tags items={feature.stack} />
     </div>
   )
 }
@@ -263,30 +370,17 @@ function PhoneThumb() {
 function Projects() {
   return (
     <Section id="projetos" title="Projetos">
-      <ul className="group/list space-y-14">
-        {features.map((feature, index) => (
+      <ul className="group/list space-y-16">
+        {features.map((feature) => (
           <li key={feature.title} className="transition-opacity lg:group-hover/list:opacity-50 lg:hover:!opacity-100">
-            <article className="flex flex-col gap-5 rounded-lg sm:flex-row-reverse sm:gap-8 lg:-m-4 lg:p-4 lg:hover:bg-night-raised/70">
-              <div className="flex-1">
-                <h3 className="font-semibold text-bright">{feature.title}</h3>
-                <p className="text-sm text-dim">{feature.context}</p>
-                <h4 className="mt-4 text-xs font-semibold text-bright">O problema</h4>
-                <p className="mt-1 text-sm leading-relaxed">{feature.problem}</p>
-                <h4 className="mt-4 text-xs font-semibold text-bright">O que eu fiz</h4>
-                <ul className="mt-1 space-y-1.5 text-sm leading-relaxed">
-                  {feature.solution.map((step) => (
-                    <li key={step} className="flex gap-2.5">
-                      <span className="mt-2 size-1 flex-none rounded-full bg-ember" aria-hidden="true" />
-                      {step}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-4 rounded-md border-l-2 border-ember bg-ember/5 px-3 py-2 text-sm leading-relaxed text-bright">
-                  {feature.result}
-                </p>
-                <Tags items={feature.stack} />
-              </div>
-              {index === 0 ? <PhoneThumb /> : null}
+            <article
+              className={`flex gap-5 rounded-lg lg:-m-4 lg:p-4 lg:hover:bg-night-raised/70 ${
+                feature.shape === 'phone' ? 'flex-col sm:flex-row-reverse sm:gap-8' : 'flex-col'
+              }`}
+            >
+              {feature.shape === 'wide' ? <Gallery feature={feature} /> : null}
+              <FeatureBody feature={feature} />
+              {feature.shape === 'phone' ? <Gallery feature={feature} /> : null}
             </article>
           </li>
         ))}
@@ -326,6 +420,7 @@ export function App() {
         <Sidebar active={active} />
         <main className="pt-20 lg:w-[52%] lg:py-24">
           <About />
+          <HowItWorks />
           <Experience />
           <Projects />
           <Systems />
