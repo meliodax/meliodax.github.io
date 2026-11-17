@@ -270,15 +270,20 @@ function Projects() {
               <div className="flex-1">
                 <h3 className="font-semibold text-bright">{feature.title}</h3>
                 <p className="text-sm text-dim">{feature.context}</p>
-                <p className="mt-3 text-sm leading-relaxed">{feature.summary}</p>
-                <ul className="mt-3 space-y-1.5 text-sm leading-relaxed">
-                  {feature.points.map((point) => (
-                    <li key={point} className="flex gap-2.5">
+                <h4 className="mt-4 text-xs font-semibold text-bright">O problema</h4>
+                <p className="mt-1 text-sm leading-relaxed">{feature.problem}</p>
+                <h4 className="mt-4 text-xs font-semibold text-bright">O que eu fiz</h4>
+                <ul className="mt-1 space-y-1.5 text-sm leading-relaxed">
+                  {feature.solution.map((step) => (
+                    <li key={step} className="flex gap-2.5">
                       <span className="mt-2 size-1 flex-none rounded-full bg-ember" aria-hidden="true" />
-                      {point}
+                      {step}
                     </li>
                   ))}
                 </ul>
+                <p className="mt-4 rounded-md border-l-2 border-ember bg-ember/5 px-3 py-2 text-sm leading-relaxed text-bright">
+                  {feature.result}
+                </p>
                 <Tags items={feature.stack} />
               </div>
               {index === 0 ? <PhoneThumb /> : null}
