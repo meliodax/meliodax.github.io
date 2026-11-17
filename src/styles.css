@@ -1,0 +1,75 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-paper: #e9eef2;
+  --color-panel: #dde4ea;
+  --color-ink: #15202b;
+  --color-muted: #536373;
+  --color-rule: #c3ced8;
+  --color-marker: #e0a100;
+  --color-marker-deep: #8a6300;
+  --color-live: #3a7d6b;
+  --font-sans: 'Archivo Variable', system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-stretch: 100%;
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  ::selection {
+    background: var(--color-marker);
+    color: var(--color-ink);
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 3px solid var(--color-marker);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+
+@utility display {
+  font-stretch: 125%;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+@utility heading {
+  font-stretch: 112%;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+@utility waypoint {
+  width: 0.9rem;
+  height: 0.9rem;
+  background: var(--color-marker);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  flex: none;
+}
